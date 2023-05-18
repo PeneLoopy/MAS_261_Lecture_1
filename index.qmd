@@ -1,0 +1,259 @@
+---
+title: "Lecture 1 - Course Introduction and Types of Data"
+author:
+  - Penelope Pooler Eisenbies
+format: 
+  revealjs:
+    multiplex: true
+    footer: ""
+    theme: [moon, custom.scss]
+    preview-links: auto
+    smaller: true
+    chalkboard: 
+      boardmarker-width: 5
+    slide-number: c/t
+    incremental: true
+    title-slide-attributes:
+      data-background-image: img/sloth_faded.png
+      data-background-size: cover  
+from: markdown+emoji
+editor: source
+execute:
+  echo: true
+---
+
+## Housekeeping
+
+::: {.incremental}
+- Introduction :wave:
+
+- Syllabus :page_with_curl:
+
+- Navigating Slides :arrow_down:
+
+- Today's plan :clipboard:
+
+  - Navigating R and RStudio :magic_wand:
+  
+  - General Introduction to Statistics and Analytics :chart_with_upwards_trend:
+  
+  - Types of Data :abacus:
+
+
+
+:::
+
+## A little about me... :wave:
+
+```{r setup, echo=FALSE}
+
+#| include: false
+
+# this line specifies options for default options for all R Chunks
+knitr::opts_chunk$set(echo=F)
+
+# suppress scientific notation
+options(scipen=100)
+
+# install helper package that loads and installs other packages, if needed
+if (!require("pacman")) install.packages("pacman", repos = "http://lib.stat.cmu.edu/R/CRAN/")
+
+# install and load required packages
+pacman::p_load(pacman,tidyverse, magrittr, olsrr, shadowtext, mapproj, 
+               countrycode, usdata, maps, RColorBrewer, gridExtra, ggthemes)
+
+# verify packages
+p_loaded()
+
+```
+
+::: columns
+
+::: {.column width="80%"}
+
+I grew up here and went to SU and 
+
+- then I ...
+
+  - worked in Scotland, Slovakia, Lithuania, Chile.
+  - traveled all over…
+  - went to graduate school in Oregon and Virginia.
+  - worked in federal gov’t and private sector. 
+
+- Now I ...
+
+  - still do consulting and some research in analytics.
+  - also helped create the Business Analytics major here at Whitman.
+  
+:::
+
+::: {.column width="20%"}
+
+![](img/globe_graphic.png)
+
+:::
+:::
+
+## Using R and RStudio :magic_wand:
+
+::: {.incremental}
+- You have two options to facilitate your introduction to R and RStudio:
+
+  - **Option 1:** Download and Install [R](https://cran.r-project.org/) and [RStudio](https://posit.co/download/rstudio-desktop/) on your laptop.
+  - **Option 2:** Start with a free [Posit Cloud account](https://posit.cloud/) and then transition to Option 1.
+
+<br/>
+
+- **If you are comfortable with coding:** Start with Option 1, but still sign up for Posit Cloud account.
+- **If you are nervous about coding:** Choose Option 2.
+- **For both options:** I can help with download/install issues during office hours.
+
+<br/>
+  
+- **What I do:** I maintain a Posit Cloud account for helping students but I do most of my work on my laptop.
+:::
+
+
+## What is Statistics, Analytics, etc.? :chart_with_upwards_trend:
+
+- Statistics (the discipline) allows us to answer questions about (almost) anything we want to know that we can collect data for.
+
+::: columns
+
+::: {.column width="70%"}
+
+  - We start with a **POPULATION** that we have a question about. 
+  
+  - We select a subset from that population, called a **SAMPLE**.
+  
+  - We collect data from the **SAMPLE** and summarize it, to get an **ESTIMATE**.
+  
+  - That **ESTIMATE** answers our question about our **POPULATION**.
+  
+:::
+
+:::{.column width="30%"}
+
+![](img/pop_sample.png)
+:::
+:::
+  
+## Statistics, Analytics, Data Science...huh :question:
+
+- [**Statistics**]{style="color: tomato"} is a discipline (what we study) and [**a statistic**]{style="color: tomato"} is an estimate based on data.
+
+  - This dual meaning confuses people.
+
+  - A newer term to describe the discipline of organizing, analyzing, and presenting data is [**Analytics**]{style="color: tomato"} .
+
+- How do these terms, Statistics and Analytics, differ?
+
+  - It depends on who you are talking to.
+  - Analytics (like the new Business Analytics major at Whitman) is the more modern term.
+  - Another (overlapping) term is Data Science which is similar but more encompassing.
+
+- Why so many terms? [**Good Question!**]{style="color: tomato"} 
+
+- [**My Opinion:**]{style="color: tomato"} People are unsure about this field and its methods which leads to confusion.
+
+## Where do YOU fit in to Statistics and Analytics :question:
+
+- Data, statistics, and analytics are essential to everyday life.
+
+  - This is especially true for management and business professionals.
+  - Understanding the pandemic, politics, sports, weather, investments, all require data skills.
+
+- Where you (students) are needed: 
+
+  - You are needed to understand data and communicate statistical information correctly and honestly to your peers, and the world at large.
+  
+- Before you ask...
+
+  - Yes, you could google [**How do I communicate statistics?**]{style="color: tomato"} 
+  - Yes you could write a related  question in [**ChatGPT**]{style="color: tomato"}  
+  - This class will provide tools and information that those searches don't provide.
+  - More to come on how to use [**ChatGPT**]{style="color: tomato"} effectively and ethically.
+
+## What percent of people in each county in the United States have a Bachelor's degree?
+
+::: columns
+
+::: {.column width="70%"}
+
+- The [**POPULATION**]{style="color: tomato"} is all people the USA.  
+
+- Within that population, we have a [**SUBPOPULATION**]{style="color: tomato"} for each county.
+
+- To answer this question, **should we talk to EVERY person in every county**?
+
+  - [**NO!**]{style="color: tomato"} Instead, the [American Community Survey](https://www.census.gov/programs-surveys/acs) uses an [established sample design](https://www.census.gov/programs-surveys/acs/methodology/design-and-methodology.html) to attain representative data from each county.
+  
+  - The [**SAMPLE**]{style="color: tomato"} is the group of people SELECTED in each county who complete the survey.
+  
+  - The [**ESTIMATES**]{style="color: tomato"} from each county's [**SAMPLE**]{style="color: tomato"} represent that county's [**POPULATION**]{style="color: tomato"}.
+
+:::
+
+:::{.column width="30%"}
+
+![](img/pop_sample.png)
+
+:::
+:::
+
+## What percent of people in each county in the United States have a Bachelor's degree?
+
+```{r echo=F, fig.dim=c(15,7)}
+
+us_counties <- map_data("county") |>                 # county polygons
+  rename("state" = "region", "county" = "subregion")
+
+cnty2019_all <- county_2019
+
+cnty2019_all <- cnty2019_all |> 
+  mutate(state = tolower(state),
+         county = tolower(name),
+         county = gsub(" county", "", county),
+         county = gsub(" parish", "", county),
+         county = gsub("\\.", "", county))           
+cnty2019_all <- full_join(us_counties,cnty2019_all)  # geo data and demographic data
+
+# bachelors pct plot
+(cnty_bachelors <- cnty2019_all |>
+  ggplot(aes(x=long, y=lat, 
+             group=group, 
+             fill=bachelors)) +
+    geom_polygon() +
+    theme_map() +
+    coord_map("albers", lat0 = 39, lat1 = 45) +
+    labs(fill= "", title="Percent with Bachelor's Degree",
+         caption="Data Source: American Community Survey 2019") +
+    scale_fill_continuous(type = "viridis"))
+
+```
+
+## Lecture 1 In-class Exercises - Q1
+
+***Session ID: mas261f23***
+
+<br>
+
+You are writing an article about freshman students at SU to find out how far they are from home and how long it took them to travel to campus.  
+
+**You randomly select 100 freshman students and ask them some questions to collect your data.**
+
+<br/>
+
+The **POPULATION** of interest is
+
+<br/>
+
+A. All students at SU
+
+B. All freshman students at SU
+
+C. All freshman students in the USA
+
+D. The 100 students you selected
+
+
